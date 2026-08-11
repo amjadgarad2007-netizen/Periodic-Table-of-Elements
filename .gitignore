@@ -1,0 +1,14 @@
+# Firebase
+.firebase/
+*.cache
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Env / secrets
+.env
+.env.local

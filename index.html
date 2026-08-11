@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الجدول الدوري للعناصر | Periodic Table of Elements</title>
+  <meta name="description" content="جدول دوري تفاعلي بالعربية والإنجليزية: 118 عنصراً مع التوزيع الإلكتروني (أوفباو)، نموذج بور الذري، صناديق المدارات، ومعلومات كاملة عن كل عنصر." />
+  <meta name="author" content="Amjad T. Al-Garably" />
+  <meta name="keywords" content="الجدول الدوري, عناصر كيميائية, التوزيع الإلكتروني, أوفباو, نموذج بور, Periodic Table, Chemistry" />
+
+  <!-- Open Graph (LinkedIn / social previews) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="الجدول الدوري للعناصر | Periodic Table of Elements" />
+  <meta property="og:description" content="جدول دوري تفاعلي: 118 عنصراً، التوزيع الإلكتروني، نموذج بور، صناديق المدارات — بالعربية والإنجليزية." />
+  <meta property="og:url" content="https://periodic-table-webapp.web.app/" />
+  <meta property="og:image" content="https://periodic-table-webapp.web.app/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ar_AR" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="الجدول الدوري للعناصر | Periodic Table of Elements" />
+  <meta name="twitter:description" content="جدول دوري تفاعلي: 118 عنصراً، التوزيع الإلكتروني، نموذج بور، صناديق المدارات — بالعربية والإنجليزية." />
+  <meta name="twitter:image" content="https://periodic-table-webapp.web.app/og-image.png" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+  <button class="lang-btn" id="lang-btn">English</button>
+  <button class="theme-btn" id="theme-btn" title="Theme"><i class="fa-solid fa-moon"></i></button>
+
+  <header>
+    <h1 id="main-title">الجدول الدوري للعناصر</h1>
+    <p id="main-sub">انقر على أي عنصر لعرض تفاصيله</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="search" type="text" autocomplete="off" placeholder="ابحث بالاسم، الرمز، أو العدد الذري..." />
+      <div class="search-results" id="search-results"></div>
+    </div>
+    <button class="quiz-btn" id="quiz-btn">
+      <i class="fa-solid fa-gamepad"></i>
+      <span id="quiz-btn-label">اختبار</span>
+    </button>
+  </div>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="table-wrap">
+    <div class="pt-grid" id="pt-grid"></div>
+    <div class="fblock" id="fblock"></div>
+  </div>
+
+  <!-- ── MODAL ── -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">✕</button>
+
+      <div class="modal-header">
+        <div class="modal-badge" id="m-badge">
+          <span class="m-num" id="m-num"></span>
+          <span class="m-sym" id="m-sym"></span>
+          <span class="m-mass" id="m-mass"></span>
+        </div>
+        <div class="modal-title">
+          <h2 id="m-name"></h2>
+          <p id="m-cat"></p>
+          <p id="m-anomaly" class="anomaly-note"></p>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="label" id="lbl-an">العدد الذري</div>
+          <div class="value" id="m-an"></div>
+        </div>
+        <div class="info-card">
+          <div class="label" id="lbl-am">العدد الكتلي</div>
+          <div class="value" id="m-am"></div>
+        </div>
+        <div class="info-card">
+          <div class="label" id="lbl-grp">المجموعة</div>
+          <div class="value" id="m-grp"></div>
+        </div>
+        <div class="info-card">
+          <div class="label" id="lbl-per">الدورة</div>
+          <div class="value" id="m-per"></div>
+        </div>
+      </div>
+
+      <div class="info-card shells-card">
+        <div class="label" id="lbl-shells">توزيع الإلكترونات في المستويات</div>
+        <div class="value" id="m-shells"></div>
+      </div>
+
+      <div class="cfg-box">
+        <div class="cfg-label" id="lbl-cfg">التوزيع الإلكتروني (أوفباو)</div>
+        <div id="m-cfg"></div>
+      </div>
+
+      <div class="orbital-section">
+        <h3 id="lbl-orbital">التوزيع في المدارات</h3>
+        <canvas id="orb-canvas" class="orb-canvas"></canvas>
+      </div>
+
+      <div class="aufbau" id="aufbau-wrap">
+        <h3 id="lbl-aufbau">مبدأ أوفباو – صناديق المدارات</h3>
+        <div class="orb-subshells" id="aufbau-cont"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── QUIZ MODAL ── -->
+  <div class="overlay" id="quiz-overlay">
+    <div class="modal quiz-modal">
+      <button class="modal-close" id="quiz-close">✕</button>
+
+      <div class="quiz-head">
+        <h3 id="quiz-title">اختبار الجدول الدوري</h3>
+        <span class="quiz-progress" id="quiz-progress"></span>
+        <span class="quiz-score" id="quiz-score"></span>
+      </div>
+
+      <div class="quiz-element-preview" id="quiz-element-preview"></div>
+      <div class="quiz-question" id="quiz-question"></div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <button class="quiz-next" id="quiz-next" style="display:none;"></button>
+      <div class="quiz-actions" id="quiz-actions"></div>
+    </div>
+  </div>
+
+  <script src="elements.js"></script>
+  <script src="app.js"></script>
+
+  <!-- ── FOOTER ── -->
+  <footer class="main-footer">
+    <div class="copyright-text">
+     <h3>&copy; Eng : Amjad.T.Al-Garably :) (2026)</h3>
+    </div>
+
+    <div class="contact-links">
+
+      <!-- انستغرام -->
+      <a href="https://www.instagram.com/amjad.t.grab2007/" target="_blank" class="social-link insta">
+        <i class="fa-brands fa-instagram"></i>
+        <span><h3>Amjad .t. al grabaly</h3></span>
+      </a>
+
+      <!-- Gmail -->
+      <a href="mailto:amjadgarab@gmail.com" class="social-link gmail">
+        <svg class="gmail-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#EA4335" d="M6 40V16l18 13L42 16v24H6z" />
+          <path fill="#FBBC04" d="M6 16l18 13 18-13H6z" />
+          <path fill="#34A853" d="M42 40V16L24 29z" />
+          <path fill="#4285F4" d="M6 40V16L24 29z" />
+          <path fill="#C5221F" d="M6 16h36v4L24 33 6 20v-4z" opacity=".2" />
+        </svg>
+        <span><h3>Email Me</h3></span>
+      </a>
+
+    </div>
+  </footer>
+
+</body>
+
+</html>
