@@ -42,7 +42,7 @@ Download the folder and open `index.html` — no build step or install required.
 ## تواصل | Contact
 
 - 💼 أمجد طارق الغرابلي — Amjad T. Al-Garably
-- 📷 Instagram: [@amjad.t.grab2007](https://www.instagram.com/amjad.t.grab2007/)
+- 📷 whatsapp: [https://wa.me/972594014486)
 - 📧 Email: [amjadgarab@gmail.com](mailto:amjadgarab@gmail.com)
 
 ---
